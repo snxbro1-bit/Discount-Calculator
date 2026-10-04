@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Free Discount Calculator Online</title>
+<meta name="description" content="Free online discount calculator to calculate discount amount, final price and total savings instantly.">
+<meta name="robots" content="index, follow">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(16,185,129,.18), transparent 35%),
+        linear-gradient(135deg, #022c22, #064e3b 48%, #022c22);
+    min-height: 100vh;
+    padding: 25px 15px;
+    color: #102a24;
+}
+
+.container {
+    width: 100%;
+    max-width: 1050px;
+    margin: auto;
+}
+
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 22px;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.header h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.header p {
+    color: #d1fae5;
+    font-size: 15px;
+}
+
+.card {
+    background: rgba(255,255,255,.97);
+    border: 1px solid rgba(255,255,255,.4);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 25px 70px rgba(0,0,0,.28);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-box {
+    margin-bottom: 5px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 9px;
+    color: #164e43;
+}
+
+.input-wrap {
+    position: relative;
+}
+
+.symbol {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #059669;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+input {
+    width: 100%;
+    padding: 16px 16px 16px 42px;
+    border: 2px solid #d1fae5;
+    border-radius: 14px;
+    font-size: 17px;
+    outline: none;
+    background: #f8fffc;
+    transition: .2s;
+}
+
+input:focus {
+    border-color: #10b981;
+    box-shadow: 0 0 0 4px rgba(16,185,129,.12);
+}
+
+.discount-symbol {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #059669;
+    font-weight: bold;
+}
+
+.discount-input {
+    padding-right: 45px;
+}
+
+.button-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    border-radius: 14px;
+    padding: 15px 22px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.calculate {
+    flex: 1;
+    color: white;
+    background: linear-gradient(135deg, #059669, #10b981);
+    box-shadow: 0 10px 25px rgba(16,185,129,.28);
+}
+
+.calculate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(16,185,129,.35);
+}
+
+.reset {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+}
+
+.reset:hover {
+    background: #d1fae5;
+}
+
+.results {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.result {
+    border-radius: 18px;
+    padding: 20px;
+    background: #f0fdf9;
+    border: 1px solid #d1fae5;
+}
+
+.result-title {
+    font-size: 13px;
+    color: #52756c;
+    margin-bottom: 8px;
+}
+
+.result-value {
+    font-size: 25px;
+    font-weight: 800;
+    color: #047857;
+    word-break: break-word;
+}
+
+.final-result {
+    background: linear-gradient(135deg, #047857, #10b981);
+    color: white;
+    border: none;
+}
+
+.final-result .result-title,
+.final-result .result-value {
+    color: white;
+}
+
+.savings {
+    margin-top: 18px;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    padding: 17px;
+    border-radius: 16px;
+    text-align: center;
+    color: #065f46;
+    font-weight: 700;
+}
+
+.info {
+    margin-top: 25px;
+    padding: 18px;
+    border-radius: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.footer {
+    text-align: center;
+    color: #a7f3d0;
+    font-size: 12px;
+    margin-top: 18px;
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 18px 10px;
+    }
+
+    .card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+    .button-row {
+        flex-direction: column;
+    }
+
+    .header h1 {
+        font-size: 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div class="badge">FREE ONLINE TOOL</div>
+        <h1>Discount Calculator</h1>
+        <p>Calculate discounts, final prices and your total savings instantly.</p>
+    </div>
+
+    <div class="card">
+
+        <div class="grid">
+
+            <div class="input-box">
+                <label for="price">Original Price</label>
+                <div class="input-wrap">
+                    <span class="symbol">Rs.</span>
+                    <input
+                        type="number"
+                        id="price"
+                        placeholder="10000"
+                        min="0"
+                        step="any"
+                    >
+                </div>
+            </div>
+
+            <div class="input-box">
+                <label for="discount">Discount Percentage</label>
+                <div class="input-wrap">
+                    <input
+                        type="number"
+                        id="discount"
+                        class="discount-input"
+                        placeholder="20"
+                        min="0"
+                        max="100"
+                        step="any"
+                    >
+                    <span class="discount-symbol">%</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="button-row">
+            <button class="calculate" onclick="calculateDiscount()">
+                Calculate Discount
+            </button>
+
+            <button class="reset" onclick="resetCalculator()">
+                Reset
+            </button>
+        </div>
+
+        <div class="results">
+
+            <div class="result">
+                <div class="result-title">Original Price</div>
+                <div class="result-value" id="originalResult">Rs. 0.00</div>
+            </div>
+
+            <div class="result">
+                <div class="result-title">Discount Amount</div>
+                <div class="result-value" id="discountResult">Rs. 0.00</div>
+            </div>
+
+            <div class="result final-result">
+                <div class="result-title">Final Price</div>
+                <div class="result-value" id="finalResult">Rs. 0.00</div>
+            </div>
+
+        </div>
+
+        <div class="savings">
+            🎉 You Save: <span id="savingResult">Rs. 0.00</span>
+        </div>
+
+        <div class="info">
+            Enter the original price and discount percentage above.
+            The calculator will instantly show the discount amount,
+            final price and total amount you save.
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Free Tools Zone • Fast • Free • Browser-Based
+    </div>
+
+</div>
+
+<script>
+function formatMoney(value) {
+    return "Rs. " + value.toLocaleString("en-LK", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+function calculateDiscount() {
+
+    const price = parseFloat(document.getElementById("price").value);
+    const discount = parseFloat(document.getElementById("discount").value);
+
+    if (isNaN(price) || price < 0) {
+        alert("Please enter a valid original price.");
+        return;
+    }
+
+    if (isNaN(discount) || discount < 0 || discount > 100) {
+        alert("Please enter a discount between 0% and 100%.");
+        return;
+    }
+
+    const discountAmount = price * (discount / 100);
+    const finalPrice = price - discountAmount;
+
+    document.getElementById("originalResult").textContent =
+        formatMoney(price);
+
+    document.getElementById("discountResult").textContent =
+        formatMoney(discountAmount);
+
+    document.getElementById("finalResult").textContent =
+        formatMoney(finalPrice);
+
+    document.getElementById("savingResult").textContent =
+        formatMoney(discountAmount);
+}
+
+function resetCalculator() {
+
+    document.getElementById("price").value = "";
+    document.getElementById("discount").value = "";
+
+    document.getElementById("originalResult").textContent = "Rs. 0.00";
+    document.getElementById("discountResult").textContent = "Rs. 0.00";
+    document.getElementById("finalResult").textContent = "Rs. 0.00";
+    document.getElementById("savingResult").textContent = "Rs. 0.00";
+}
+
+document.getElementById("price").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") calculateDiscount();
+});
+
+document.getElementById("discount").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") calculateDiscount();
+});
+</script>
+
+</body>
+</html>
